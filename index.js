@@ -62,8 +62,8 @@ function renderTabs(id = activeId) {
     tabsList.appendChild(tabsItem);
 
     tabsItem.addEventListener('click', () => {
-      activeId = tabsItem.id;
-      renderProductList(activeId);
+      activeId = tabsItem.id; 
+      renderProductList(activeId); 
     });
   });
 
@@ -77,7 +77,7 @@ renderTabs();
 function renderProductList(id) {
   productsList.innerHTML = '';
 
-  renderTabs(Number(id));
+  renderTabs(Number(id)); 
 
   products.forEach((el) => {
     if (id == el.categoryId) {

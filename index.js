@@ -33,7 +33,6 @@ const categories = [
   { categoryId: 5, categoryName: 'Брюки' },
 ];
 
-
 const body = document.querySelector('body');
 const container = document.createElement('div');
 container.classList.add('container');
@@ -45,3 +44,59 @@ const productsContainer = document.createElement('div');
 productsContainer.classList.add('products');
 const productsList = document.createElement('ul');
 productsList.classList.add('products-list');
+
+let activeId = 2;
+
+function renderTabs(id = activeId) {
+  tabsList.innerHTML = '';
+
+  categories.forEach((el) => {
+    const tabsItem = document.createElement('li');
+    tabsItem.classList.add('tabs-item');
+    tabsItem.id = el.categoryId;
+    tabsItem.textContent = el.categoryName;
+
+    if (id == el.categoryId) {
+      tabsItem.classList.add('active');
+    }
+    tabsList.appendChild(tabsItem);
+
+    tabsItem.addEventListener('click', () => {
+      activeId = tabsItem.id;
+      renderProductList(activeId);
+    });
+  });
+
+  tabs.appendChild(tabsList);
+  container.appendChild(tabs);
+  body.appendChild(container);
+}
+
+renderTabs();
+
+function renderProductList(id) {
+  productsList.innerHTML = '';
+
+  renderTabs(Number(id));
+
+  products.forEach((el) => {
+    if (id == el.categoryId) {
+      const productCard = document.createElement('div');
+      const productImg = document.createElement('img');
+      const productTitle = document.createElement('p');
+      productCard.classList.add('product-card');
+      productImg.classList.add('product-picture');
+      productTitle.classList.add('product-title');
+
+      productImg.src = '/img/tovar.jpeg';
+      productTitle.textContent = el.productName;
+      productCard.appendChild(productImg);
+      productCard.appendChild(productTitle);
+      productsList.appendChild(productCard);
+      productsContainer.appendChild(productsList);
+      container.appendChild(productsContainer);
+    }
+  });
+}
+
+renderProductList(activeId);
